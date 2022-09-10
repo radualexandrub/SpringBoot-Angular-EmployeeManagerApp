@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@import "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css";
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css";
+
+:root {
+  --primary-color: #446677;
+  --primary-color-darker: #284350;
+}
+::selection {
+  background: var(--primary-color);
+  color: #fff;
+}
+body {
+  background: #fafafa;
+  font-size: 16px;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1300px;
+  }
+}
+.container {
+  margin-top: 2rem;
+}
+.nav-link:hover {
+  cursor: pointer;
+}
+.card {
+  border: none;
+  box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+}
+.card--name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.card--img {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.w-60 {
+  width: 4rem;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+}
+.btn-primary:hover {
+  background-color: var(--primary-color-darker);
+}
+.btn-primary:disabled {
+  color: #fff;
+  background-color: gray;
+  border-color: gray;
+}
+.social-links li a {
+  -webkit-border-radius: 50%;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  width: 30px;
+  font-size: 12px;
+  transition: background-color 200ms ease-in;
+}
+.social-links li a:hover {
+  background-color: var(--primary-color-darker);
+}
+a {
+  color: var(--primary-color);
+}
+a:hover {
+  color: var(--primary-color-darker);
+}
+.alert-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
