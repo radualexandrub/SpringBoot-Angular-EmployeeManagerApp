@@ -13,16 +13,22 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   public getEmployees(): Observable<any> {
+    const methodName = 'getEmployees() ';
+    console.debug(methodName + 'Request Sent');
     return this.http.get<Employee[]>(`${this.apiServerUrl}/employee/all`);
   }
 
   public getEmployeeById(employeeId: number): Observable<Employee> {
+    const methodName = 'getEmployeeById() ';
+    console.debug(methodName + 'Request Sent: ' + employeeId);
     return this.http.get<Employee>(
-      `${this.apiServerUrl}/employee/delete/${employeeId}`
+      `${this.apiServerUrl}/employee/find/${employeeId}`
     );
   }
 
   public addEmployee(employee: Employee): Observable<Employee> {
+    const methodName = 'addEmployee() ';
+    console.debug(methodName + 'Request Sent: ' + JSON.stringify(employee));
     return this.http.post<Employee>(
       `${this.apiServerUrl}/employee/add`,
       employee
@@ -30,6 +36,8 @@ export class EmployeeService {
   }
 
   public updateEmployee(employee: Employee): Observable<Employee> {
+    const methodName = 'updateEmployee() ';
+    console.debug(methodName + 'Request Sent: ' + JSON.stringify(employee));
     return this.http.put<Employee>(
       `${this.apiServerUrl}/employee/update`,
       employee
@@ -37,6 +45,8 @@ export class EmployeeService {
   }
 
   public deleteEmployee(employeeId: number): Observable<void> {
+    const methodName = 'deleteEmployee() ';
+    console.debug(methodName + 'Request Sent: ' + employeeId);
     return this.http.delete<void>(
       `${this.apiServerUrl}/employee/delete/${employeeId}`
     );

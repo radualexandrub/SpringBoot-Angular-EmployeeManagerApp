@@ -14,6 +14,8 @@ public class Employee implements Serializable {
     private String jobTitle;
     private String phone;
     private String imageUrl;
+    private String websiteUrl;
+    private String linkedinUrl;
     @Column(nullable = false, updatable = false)
     private String employeeCode;
 
@@ -85,6 +87,14 @@ public class Employee implements Serializable {
         this.employeeCode = employeeCode;
     }
 
+    public String getWebsiteUrl() { return websiteUrl; }
+
+    public void setWebsiteUrl(String websiteUrl) { this.websiteUrl = websiteUrl; }
+
+    public String getLinkedinUrl() { return linkedinUrl; }
+
+    public void setLinkedinUrl(String linkedinUrl) { this.linkedinUrl = linkedinUrl;  }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -94,6 +104,8 @@ public class Employee implements Serializable {
                 ", jobTitle='" + jobTitle + '\'' +
                 ", phone='" + phone + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", websiteUrl='" + websiteUrl + '\'' +
+                ", linkedinUrl='" + linkedinUrl + '\'' +
                 ", employeeCode='" + employeeCode + '\'' +
                 '}';
     }

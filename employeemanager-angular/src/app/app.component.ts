@@ -12,6 +12,7 @@ import { EmployeeService } from './employee.service';
 export class AppComponent implements OnInit {
   title = 'employeemanager-angular';
   public employees: Employee[] = [];
+  public editEmployee!: Employee | undefined;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -20,17 +21,23 @@ export class AppComponent implements OnInit {
   }
 
   public getEmployees(): void {
+    const methodName = 'getEmployees() ';
     this.employeeService.getEmployees().subscribe(
       (response: Employee[]) => {
         this.employees = response;
+        console.debug(
+          methodName +
+            'Response Received. Showing first two objects: ' +
+            JSON.stringify(response.slice(0, 2))
+        );
       },
       (error: HttpErrorResponse) => {
-        console.log(error.message);
+        console.error(methodName + error.message);
       }
     );
   }
 
-  public onOpenModal(employee: Employee | null, mode: string): void {
+  public onOpenModal(employee: Employee, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
     button.type = 'button';
@@ -41,6 +48,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#addEmployeeModal');
     }
     if (mode == 'edit') {
+      this.editEmployee = employee;
       button.setAttribute('data-target', '#editEmployeeModal');
     }
     if (mode == 'delete') {
@@ -53,7 +61,7 @@ export class AppComponent implements OnInit {
   }
 
   public onAddEmployee(addForm: NgForm): void {
-    let methodName = 'onAddEmployee() ';
+    const methodName = 'onAddEmployee() ';
     this.employeeService.addEmployee(addForm.value).subscribe(
       (response: Employee) => {
         console.debug(
@@ -61,9 +69,26 @@ export class AppComponent implements OnInit {
         );
         this.getEmployees();
         document.getElementById('add-employee-form-close')?.click();
+        addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.error(methodName + error.message);
+      }
+    );
+  }
+
+  public onUpdateEmployee(employee: Employee): void {
+    const methodName = 'onUpdateEmployee() ';
+    this.employeeService.updateEmployee(employee).subscribe(
+      (response: Employee) => {
+        console.debug(
+          methodName + 'Response Received: ' + JSON.stringify(response)
+        );
+        this.getEmployees();
+        document.getElementById('edit-employee-form-close')?.click();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(methodName + error.message);
       }
     );
   }
