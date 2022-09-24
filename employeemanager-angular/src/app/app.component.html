@@ -55,7 +55,7 @@
             </li>
             <li *ngIf="employee?.linkedinUrl" class="list-inline-item"><a data-placement="top" data-toggle="tooltip"
                 class="tooltips" href="{{employee?.linkedinUrl}}" target="_blank" data-original-title="LinkedIn"
-                title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                title="{{employee.name+'\'s LinkedIn'}}"><i class="fa fa-linkedin"></i></a></li>
           </ul>
         </div>
       </div>
@@ -69,7 +69,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title" id="addEmployeeModalLabel">Add Employee</div>
+        <div class="modal-title" id="addEmployeeModalLabel">Add new employee</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -78,17 +78,27 @@
         <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm)">
           <div class="form-group">
             <label for="name">Name *</label>
-            <input type="text" ngModel name="name" class="form-control" id="name" required>
+            <input type="text" ngModel name="name" class="form-control" id="name" autocomplete="off" required>
           </div>
           <div class="form-group">
             <label for="email">Email Address *</label>
             <input type="email" ngModel name="email" class="form-control" id="email" placeholder="name@example.com"
-              required>
+              autocomplete="off" required>
           </div>
           <div class="form-group">
             <label for="phone">Job title *</label>
             <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile"
-              placeholder="Developer, Manager, Support, etc" required>
+              placeholder="Developer, Manager, Support, etc" list="jobTitle" required>
+            <datalist id="jobTitle">
+              <option value="Project Manager">
+              <option value="Developer">
+              <option value="Designer">
+              <option value="Support">
+              <option value="System Admin">
+              <option value="SEO Specialist">
+              <option value="Recruiter">
+              <option value="HR Manager">
+            </datalist>
           </div>
           <div class="form-group">
             <label for="phone">Phone *</label>
@@ -126,7 +136,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title" id="updateEmployeeModalLabel">Edit Employee</div>
+        <div class="modal-title" id="updateEmployeeModalLabel">Edit employee {{editEmployee?.name}}</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -136,7 +146,7 @@
           <div class="form-group">
             <label for="name">Name *</label>
             <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name"
-              aria-describedby="emailHelp" required>
+              aria-describedby="emailHelp" autocomplete="off" required>
           </div>
           <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id">
           <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode" class="form-control"
@@ -144,12 +154,22 @@
           <div class="form-group">
             <label for="email">Email Address *</label>
             <input type="email" ngModel="{{editEmployee?.email}}" name="email" class="form-control" id="email"
-              placeholder="name@example.com" required>
+              placeholder="name@example.com" autocomplete="off" required>
           </div>
           <div class="form-group">
             <label for="phone">Job title *</label>
             <input type="text" ngModel="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle"
-              placeholder="Developer, Manager, Support, etc" required>
+              placeholder="Developer, Manager, Support, etc" list="jobTitle" required>
+            <datalist id="jobTitle">
+              <option value="Project Manager">
+              <option value="Developer">
+              <option value="Designer">
+              <option value="Support">
+              <option value="System Admin">
+              <option value="SEO Specialist">
+              <option value="Recruiter">
+              <option value="HR Manager">
+            </datalist>
           </div>
           <div class="form-group">
             <label for="phone">Phone *</label>
@@ -190,16 +210,18 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title" id="deleteModelLabel">Delete Employee</div>
+        <div class="modal-title" id="deleteModelLabel">Delete employee {{deleteEmployee?.name}}</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete employee name?</p>
+        <p>Are you sure you want to delete employee {{deleteEmployee?.name}}?</p>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-          <button class="btn btn-danger" data-dismiss="modal">Yes</button>
+          <button type="button" id="delete-employee-form-close" class="btn btn-secondary"
+            data-dismiss="modal">No</button>
+          <button (click)="onDeleteEmployee(deleteEmployee!.id)" class="btn btn-danger"
+            data-dismiss="modal">Yes</button>
         </div>
       </div>
     </div>

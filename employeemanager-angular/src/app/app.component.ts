@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'employeemanager-angular';
   public employees: Employee[] = [];
   public editEmployee!: Employee | undefined;
+  public deleteEmployee!: Employee | undefined;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#editEmployeeModal');
     }
     if (mode == 'delete') {
+      this.deleteEmployee = employee;
       button.setAttribute('data-target', '#deleteEmployeeModal');
     }
 
@@ -86,6 +88,22 @@ export class AppComponent implements OnInit {
         );
         this.getEmployees();
         document.getElementById('edit-employee-form-close')?.click();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(methodName + error.message);
+      }
+    );
+  }
+
+  public onDeleteEmployee(employeeId: number): void {
+    const methodName = 'onDeleteEmployee() ';
+    this.employeeService.deleteEmployee(employeeId).subscribe(
+      (response: void) => {
+        console.debug(
+          methodName + 'Response Received: ' + JSON.stringify(response)
+        );
+        this.getEmployees();
+        document.getElementById('delete-employee-form-close')?.click();
       },
       (error: HttpErrorResponse) => {
         console.error(methodName + error.message);
