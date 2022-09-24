@@ -12,6 +12,7 @@ import { EmployeeService } from './employee.service';
 export class AppComponent implements OnInit {
   title = 'employeemanager-angular';
   public employees: Employee[] = [];
+  public employeesCopy: Employee[] = [];
   public editEmployee!: Employee | undefined;
   public deleteEmployee!: Employee | undefined;
 
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     this.employeeService.getEmployees().subscribe(
       (response: Employee[]) => {
         this.employees = response;
+        this.employeesCopy = response;
         console.debug(
           methodName +
             'Response Received. Showing first two objects: ' +
@@ -36,6 +38,27 @@ export class AppComponent implements OnInit {
         console.error(methodName + error.message);
       }
     );
+  }
+
+  public searchEmployees(keyword: string): void {
+    const resultEmployees: Employee[] = [];
+    const searchedText = keyword.toLowerCase();
+    for (const employee of this.employeesCopy) {
+      if (
+        employee.name.toLowerCase().indexOf(searchedText) !== -1 ||
+        employee.email.toLowerCase().indexOf(searchedText) !== -1 ||
+        employee.phone.toLowerCase().indexOf(searchedText) !== -1 ||
+        employee.jobTitle.toLowerCase().indexOf(searchedText) !== -1
+      ) {
+        resultEmployees.push(employee);
+      }
+    }
+    this.employees = resultEmployees;
+
+    // if input field for search is empty
+    if (!searchedText) {
+      this.employees = this.employeesCopy;
+    }
   }
 
   public onOpenModal(employee: Employee, mode: string): void {
