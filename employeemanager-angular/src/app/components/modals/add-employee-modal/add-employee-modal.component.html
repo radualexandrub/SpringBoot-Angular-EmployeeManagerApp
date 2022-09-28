@@ -1,0 +1,62 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title" id="addEmployeeModalLabel">Add new employee</div>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm)">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" ngModel name="name" class="form-control" id="name" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" ngModel name="email" class="form-control" id="email" placeholder="name@example.com"
+            autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Job title *</label>
+          <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile"
+            placeholder="Developer, Manager, Support, etc" list="jobTitle" required>
+          <datalist id="jobTitle">
+            <option value="Project Manager">
+            <option value="Developer">
+            <option value="Designer">
+            <option value="Support">
+            <option value="System Admin">
+            <option value="SEO Specialist">
+            <option value="Recruiter">
+            <option value="HR Manager">
+          </datalist>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone *</label>
+          <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Image URL *</label>
+          <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Website URL</label>
+          <input type="text" ngModel name="websiteUrl" class="form-control" id="websiteUrl"
+            placeholder="https://www.employees-website.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">LinkedIn URL</label>
+          <input type="text" ngModel name="linkedinUrl" class="form-control" id="linkedinUrl"
+            placeholder="https://www.linkedin.com/in/employee-name/">
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="add-employee-form-close" class="btn btn-secondary"
+            data-dismiss="modal">Close</button>
+          <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Add employee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
