@@ -1,0 +1,35 @@
+<div class="card m-b-30">
+  <div class="card-body row">
+    <div class="col-4">
+      <img src="{{employee?.imageUrl}}" alt="{{employee.name}}" title="{{'Picture of ' + employee.name}}"
+        class="card--img img-fluid rounded-circle w-60">
+    </div>
+    <div class="col-8 card-title align-self-center mb-0">
+      <div class="card--name">{{employee.name}}</div>
+      <p class="m-0">{{employee.jobTitle}}</p>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email: <a
+        href="{{'mailto:'+employee.email}}">{{employee.email}}</a></li>
+    <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone: <a
+        href="{{'tel:'+employee.phone}}">{{employee.phone}}</a></li>
+  </ul>
+  <div class="card-body">
+    <div class="float-right btn-group btn-group-sm">
+      <a (click)="onOpenModal(employee, 'edit')" href="#" class="btn btn-primary tooltips" data-placement="top"
+        data-toggle="tooltip" data-original-title="Edit" title="Edit employee"><i class="fa fa-pencil"></i> </a>
+      <a (click)="onOpenModal(employee, 'delete')" href="#" class="btn btn-secondary tooltips" data-placement="top"
+        data-toggle="tooltip" data-original-title="Delete" title="Delete employee"><i class="fa fa-times"></i></a>
+    </div>
+    <ul class="social-links list-inline mb-0">
+      <li *ngIf="employee?.websiteUrl" class="list-inline-item"><a data-placement="top" data-toggle="tooltip"
+          class="tooltips" href="{{employee?.websiteUrl}}" target="_blank" data-original-title="Website"
+          title="{{employee.name+'\'s website'}}"><i class="fa fa-globe"></i></a>
+      </li>
+      <li *ngIf="employee?.linkedinUrl" class="list-inline-item"><a data-placement="top" data-toggle="tooltip"
+          class="tooltips" href="{{employee?.linkedinUrl}}" target="_blank" data-original-title="LinkedIn"
+          title="{{employee.name+'\'s LinkedIn'}}"><i class="fa fa-linkedin"></i></a></li>
+    </ul>
+  </div>
+</div>
