@@ -2,16 +2,28 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css";
 
 :root {
-  --primary-color: #446677;
-  --primary-color-darker: #284350;
+  --background-color: hsl(0, 0%, 98%);
+  --primary-color: hsl(200, 27%, 37%);
+  --secondary-color: hsl(200, 33%, 24%);
+  --primary-font-color: #000;
+  --container-color: hsl(0, 0%, 97%);
+}
+[data-theme="dark"] {
+  --background-color: hsl(207, 29%, 6%);
+  --primary-color: hsl(216, 85%, 80%);
+  --secondary-color: hsl(210, 79%, 75%);
+  --primary-font-color: #fff;
+  --container-color: hsl(207, 29%, 8%);
 }
 ::selection {
   background: var(--primary-color);
   color: #fff;
 }
 body {
-  background: #fafafa;
+  background-color: var(--background-color);
   font-size: 16px;
+  color: var(--primary-font-color);
+  transition: background-color color 300ms ease-in;
 }
 @media (min-width: 1200px) {
   .container {
@@ -21,14 +33,22 @@ body {
 .container {
   margin-top: 2rem;
 }
+.modal-content {
+  background-color: var(--container-color);
+}
+.navbar {
+  background-color: hsl(200, 33%, 10%);
+}
 .nav-link:hover {
   cursor: pointer;
 }
 .card {
+  background-color: var(--container-color);
   border: none;
   box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
   border-radius: 1rem;
+  transition: background-color 300ms ease-in;
 }
 .card--name {
   font-size: 1.2rem;
@@ -39,6 +59,13 @@ body {
   aspect-ratio: 1/1;
   object-fit: cover;
 }
+.card .list-group-item {
+  background-color: transparent;
+}
+.dark-mode-icon {
+  color:#fff;
+  cursor:pointer;
+}
 .w-60 {
   width: 4rem;
 }
@@ -46,7 +73,7 @@ body {
   background-color: var(--primary-color);
 }
 .btn-primary:hover {
-  background-color: var(--primary-color-darker);
+  background-color: var(--secondary-color);
 }
 .btn-primary:disabled {
   color: #fff;
@@ -67,13 +94,13 @@ body {
   transition: background-color 200ms ease-in;
 }
 .social-links li a:hover {
-  background-color: var(--primary-color-darker);
+  background-color: var(--secondary-color);
 }
 a {
   color: var(--primary-color);
 }
 a:hover {
-  color: var(--primary-color-darker);
+  color: var(--secondary-color);
 }
 .alert-title {
   font-size: 1.2rem;
