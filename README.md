@@ -1,5 +1,25 @@
 # Employee Manager App with Angular and SpringBoot Rest API
 
+Employee Manager App that permits CRUD operations through Angular SPA that consumes a SpringBoot REST API connected to MySQL Database.
+
+This project is based on [Spring Boot Full Stack with Angular App - Full Course 05-Feb-2021 - Amigoscode - 2h40m](https://youtu.be/Gx4iBLKLVHk) tutorial. The complete documentation for this project can be found here: [Spring Boot Full Stack with Angular Application - Full Course 05-Feb-2021 - Amigoscode](https://github.com/radualexandrub/Study/blob/master/SpringBoot/SpringBootWithAngularCourse.md).
+
+<br/>
+
+## SpringBoot REST API URLs:
+
+- `http://localhost:8080/api/employees` - GET - `getAllEmployees()`
+
+- `http://localhost:8080/api/employees/{id}` - GET - `getEmployeeById(@PathVariable("id") Long id)`
+
+- `http://localhost:8080/api/employees/new` - POST - `addEmployee(@RequestBody Employee employee)`
+
+- `http://localhost:8080/api/employees/update` - PUT - `updateEmployee(@RequestBody Employee employee)`
+
+- `http://localhost:8080/api/employees/{id}` - DELETE - `deleteEmployee(@PathVariable("id") Long id)`
+
+<br/>
+
 ## Install Dependencies & Run the App Locally
 
 ### Clone this repository
@@ -55,7 +75,7 @@ git clone https://github.com/radualexandrub/SpringBoot-Angular-EmployeeManagerAp
         - `sudo nano /etc/environment`
         - write `JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"`
         - `cat /etc/environment`
-    - Install Maven: `sudo apt install mavenD
+    - Install Maven: `sudo apt install maven`
         - `mvn -v`
 
 ### Install Node.js, npm and Angular
@@ -77,6 +97,14 @@ git clone https://github.com/radualexandrub/SpringBoot-Angular-EmployeeManagerAp
 
 The complete project (MySQL + SpringBoot BackEnd + Angular FrontEnd) can be started in Windows with these steps:
 
-- start the MySQL Server by opening Start Menu, search and open "Services", manually find MySQL80 service -> Right click it -> Start
+- start the MySQL Server by opening Windows Start Menu, search and open "Services", manually find MySQL80 service -> Right click it -> Start (for Linux, run `sudo systemctl start mysql.service`)
 - start the SpringBoot Back-end Server with **`mvn spring-boot:run`** and test on http://localhost:8080/api/employees
 - start the Front-end Angular Application with **`ng serve --open`** and open http://localhost:4200/
+
+<br/>
+
+## License
+
+Copyright (c) 2022 Radu-Alexandru Bulai
+
+Released under [MIT License](./LICENSE).
