@@ -17,6 +17,7 @@ Contents:
     - [Install and Configure Java and Maven](#install-and-configure-java-and-maven)
     - [Install Node.js, npm and Angular](#install-nodejs-npm-and-angular)
   - [Running the app locally](#running-the-app-locally)
+  - [Running locally with Docker 🚀](#running-locally-with-docker-)
   - [License](#license)
 
 <br/>
@@ -76,13 +77,13 @@ git clone https://github.com/radualexandrub/SpringBoot-Angular-EmployeeManagerAp
 
 - Check the database with the following commands:
   - `show databases;`
-  - `use employeemanager`
-  - `show tables` (it should be empty if SpringBoot app was never ran)
+  - `use employeemanager;`
+  - `show tables;` (it should be empty if SpringBoot app was never ran)
   - `select * from employee;` (it should return error SpringBoot app was never ran)
 
 ### Install and Configure Java and Maven
 
-- For x86 Windows:
+- For x64 Windows:
 
   - (Recommended) You can download the JDK (Java Development Toolkit) separately from here: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
   - Go to "System Properties" (Can be found on Control Panel > System and Security > System > Advanced System Settings)
@@ -93,7 +94,8 @@ git clone https://github.com/radualexandrub/SpringBoot-Angular-EmployeeManagerAp
   - Open Command Prompt (cmd.exe) and type `java -version` to see if Java is running on your machine
   - Then, you can download and install Maven from here: https://maven.apache.org/download.cgi
 
-- For x86 Debian based systems (Ubuntu, Zorin OS, KDE Neon, etc):
+- For x64 Debian based systems (Ubuntu, Linux Mint, Zorin OS, KDE Neon, etc):
+
   - Run the following commands based on [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-18-04)
     - `sudo apt install default-jre`
     - `sudo apt install default-jdk`
@@ -110,14 +112,15 @@ git clone https://github.com/radualexandrub/SpringBoot-Angular-EmployeeManagerAp
 
 ### Install Node.js, npm and Angular
 
-- For Windows:
+- For x64 Windows:
 
   - First, download [Node.js](https://nodejs.org/en/download/) - we need it to use NPM (Node Package Manager)
   - Make sure you have `C:\Program Files\nodejs\` path on your `System Properties > Environment Variables > System Variables > Path`. Restart PC.
   - Then install the Angular CLI: To install the Angular CLI globally, open a terminal window and run the following command (You will run this only once): `npm install -g @angular/cli`
   - Within `employeemanager-angular` Angular App folder, run `npm install`
 
-- For x86 Debian based systems (Ubuntu, Zorin OS, KDE Neon, etc):
+- For x64 Debian based systems (Ubuntu, Linux Mint, Zorin OS, KDE Neon, etc):
+
   - Run `curl -s https://deb.nodesource.com/setup_16.x | sudo bash` (to get Node v16)
   - Run `sudo apt install nodejs -y`
   - Install npm `sudo npm install -g npm@8.19.2`
@@ -136,8 +139,115 @@ The complete project (MySQL + SpringBoot BackEnd + Angular FrontEnd) can be star
 
 <br/>
 
+## Running locally with Docker 🚀
+
+If you cannot install MySQL, Java, Maven and Node.js/Angular on your machine, you can run this Application with [Docker](https://www.docker.com/products/docker-desktop/).
+
+🔵 Note: The containers will run this App for a Production environment:
+
+- Front-End (configured in `Angular.Dockerfile`) will run the static build with Nginx
+- Back-End (configured in `Spring.Dockerfile`) will run the application's built package
+- MySQL8 (configured in `docker-compose.yml`)
+
+<br/>
+
+Steps:
+
+- Clone this repo
+
+```bash
+git clone https://github.com/radualexandrub/SpringBoot-Angular-EmployeeManagerApp employeemanager
+cd employeemanager
+```
+
+- Build (and run as containers) the database, front-end and back-end images via `docker-compose.yml` file with [`docker compose up`](https://docs.docker.com/engine/reference/commandline/compose_up/) command
+
+```bash
+docker compose up
+
+# or -d to supress logs (Detached mode: Run containers in the background)
+docker compose up -d
+```
+
+- Open the front-end app (on http://localhost:8081/) and the back-end Spring API (on http://localhost:8080/)
+
+- Play with the app (you can follow the app's logs with [`docker-compose logs -f`](https://docs.docker.com/engine/reference/commandline/compose_logs/))
+
+- Stop all Docker containers
+
+```bash
+docker-compose down
+
+# or use -v to also remove the volumes used for MySQL
+docker-compose down -v
+```
+
+- Remove built Docker images
+
+```bash
+# View images and their IDs
+docker images -a
+
+# Remove images by their IDs
+docker rmi <angular_appImageID>
+docker rmi <spring_appImageID>
+docker rmi <mysql_db_ImageID>
+```
+
+- Show Docker disk usage
+
+```bash
+docker system df
+```
+
+- (Optional) Remove all Docker data (including Images, Containers, Local Volumes and **Build Cache**)
+
+```bash
+docker system prune
+```
+
+<br/>
+
+Docker resources I used:
+
+- [Learn Docker in 7 Easy Steps - Beginner's Tutorial by Fireship.io - Study Notes by Radu Alexandru B](https://github.com/radualexandrub/Study/blob/master/Docker/FireshipDockerBeginnerTutorial11m.md)
+- [Docker Compose: Spring Boot and MySQL example - from BezKoder.com](https://www.bezkoder.com/docker-compose-spring-boot-mysql/)
+- [**How to Dockerize Angular with NGINX and Spring Boot with MySQL using Docker Compose** - from javachinna.com](https://www.javachinna.com/angular-nginx-spring-boot-mysql-docker-compose/)
+
+Issues encountered when running Docker containers:
+
+- [Dockerfile after build container doesn’t work ”Could not find or load main class”](https://forums.docker.com/t/dockerfile-after-build-container-doesnt-work-could-not-find-or-load-main-class/121348) - solved by adding whole path to `main()` java function (eg. `com.radubulai.employeemanager.EmployeemanagerApplication`)
+- [Unable to open JDBC Connection for DDL execution](https://stackoverflow.com/questions/54211638/unable-to-open-jdbc-connection-for-ddl-execution)
+- [Communications link failure , Spring Boot + MySql +Docker + Hibernate](https://stackoverflow.com/questions/58880998/communications-link-failure-spring-boot-mysql-docker-hibernate)
+- [Could not create connection to database server via Docker](https://stackoverflow.com/questions/63667449/could-not-create-connection-to-database-server-via-docker) - got the Idea of delaying/waiting for MySQL8 container to fully be operational before Spring tries to connect to the database
+- [Spring Boot + docker-compose + MySQL: Connection refused](https://stackoverflow.com/questions/54145220/spring-boot-docker-compose-mysql-connection-refused) - adding `healthcheck` to MySQL Image in `docker-compose.yml`
+- [Docker Compose wait for container X before starting Y](https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y/41854997#41854997)
+- [Connection Java - MySQL : Public Key Retrieval is not allowed](https://stackoverflow.com/questions/50379839/connection-java-mysql-public-key-retrieval-is-not-allowed) - adding client option to mysql-connector `allowPublicKeyRetrieval=true` to allow the client to automatically request the public key from the server => `jdbc:mysql://mysql-db:3306/employeemanager?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true`
+
+CORS related issues while running Docker containers and using the app:
+
+- [API Net 6 :: CORS issues when running inside Docker container](https://forums.docker.com/t/api-net-6-cors-issues-when-running-inside-docker-container/130446)
+- ['Access-Control-Allow-Origin' with spring boot](https://stackoverflow.com/questions/46065156/access-control-allow-origin-with-spring-boot)
+- Added `'Access-Control-Allow-Origin' '*'` in header in Angular App that is running on Nginx
+
+```php
+server {
+  listen 80;
+  location / {
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+    add_header 'Access-Control-Allow-Headers' 'X-Requested-With,Accept,Content-Type, Origin';
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+    try_files $uri $uri/ /index.html =404;
+  }
+}
+```
+
+<br/>
+
 ## License
 
-Copyright (c) 2022 Radu-Alexandru Bulai
+Copyright &copy; 2022 [Radu-Alexandru Bulai](https://radubulai.com)
 
 Released under [MIT License](./LICENSE).
