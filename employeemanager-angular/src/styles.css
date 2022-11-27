@@ -43,6 +43,14 @@ body {
 .nav-link:hover {
   cursor: pointer;
 }
+@media screen and (max-width:992px) {
+  .nav-item {
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
 .card {
   background-color: var(--container-color);
   border: none;

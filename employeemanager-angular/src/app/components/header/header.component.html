@@ -10,13 +10,13 @@
         <a class="nav-link" (click)="onOpenModal(null!, 'add')">Add Employee <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <div (click)="onToggleDarkTheme()" class="dark-mode-icon" title="Toggle between light/dark theme">
-      <i class="fa fa-moon-o fa-2x mx-2"></i>
-    </div>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="nav-item form-inline my-2 my-lg-0">
       <input (ngModelChange)="searchEmployees(keyword.value)" #keyword="ngModel" ngModel name="keyword" type="search"
         id="searchName" class="form-control mr-sm-2" title="Search employees by name, email, phone, or job title"
         placeholder="Search employees...">
     </form>
+    <div (click)="onToggleDarkTheme()" class="dark-mode-icon nav-item" title="Toggle between light/dark theme">
+      <i class="fa fa-moon-o fa-2x mx-2"></i>
+    </div>
   </div>
 </nav>
