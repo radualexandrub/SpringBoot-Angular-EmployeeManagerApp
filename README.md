@@ -18,6 +18,7 @@ Contents:
     - [Install Node.js, npm and Angular](#install-nodejs-npm-and-angular)
   - [Running the app locally](#running-the-app-locally)
   - [Running locally with Docker 🚀](#running-locally-with-docker-)
+  - [Folder Project Structure](#folder-project-structure)
   - [License](#license)
 
 <br/>
@@ -249,6 +250,51 @@ Issues encountered when running `docker compose up` on Debian (Linux):
 - Download and install Docker Desktop `.deb` package (that contains `docker compose`) for Debian from [here](https://docs.docker.com/desktop/install/ubuntu/)
 - [mvnw: Permission denied](https://github.com/pascalgrimaud/generator-jhipster-docker/issues/29) - fixed by making `mvnw` file executable - run `chmod +x mvnw` within the root project path
 - [Error starting userland proxy: listen tcp4 0.0.0.0:3306: bind: address already in use](https://stackoverflow.com/questions/37896369/error-starting-userland-proxy-listen-tcp-0-0-0-03306-bind-address-already-in) - fixed by running `sudo netstat -nlpt | grep 3306` (installed by `sudo apt instal net-tools`) which finds MySQL running on port 3306 -> stop local MySQL from running with `sudo systemctl stop mysql.service`
+
+<br/>
+
+## Folder Project Structure
+
+As of Wednesday, November 30, 2022
+
+```
+employeemanager/
+┣ .m2/
+┣ .mvn/
+┣ employeemanager-angular/
+┃ ┣ .angular/
+┃ ┃ ┗ cache/
+┃ ┃   ┗ 13.2.6/
+┃ ┣ Angular.Dockerfile
+┃ ┗ src/
+┃   ┣ app/
+┃   ┃ ┣ components/
+┃   ┃ ┃ ┣ employee-card/
+┃   ┃ ┃ ┣ header/
+┃   ┃ ┃ ┗ modals/
+┃   ┃ ┗ services/
+┃   ┣ assets/
+┃   ┗ environments/
+┣ src/
+┃ ┣ main/
+┃ ┃ ┣ java/
+┃ ┃ ┃ ┗ com/radubulai/employeemanager/
+┃ ┃ ┃   ┣ exception/
+┃ ┃ ┃   ┣ model/
+┃ ┃ ┃   ┣ repo/
+┃ ┃ ┃   ┣ service/
+┃ ┃ ┃   ┗ EmployeemanagerApplication.java
+┃ ┃ ┗ resources/
+┃ ┃   ┣ static/
+┃ ┃   ┗ templates/
+┃ ┗ test/
+┣ target/
+┣ mvnw
+┣ mvnw.cmd
+┣ pom.xml
+┣ Spring.Dockerfile
+┗ docker-compose.yml
+```
 
 <br/>
 

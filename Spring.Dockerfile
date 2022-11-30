@@ -33,4 +33,7 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
+CMD echo "The application will start in ${APPLICATION_START_DELAY_IN_SECONDS}s..." && \
+    sleep ${APPLICATION_START_DELAY_IN_SECONDS}
+
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.radubulai.employeemanager.EmployeemanagerApplication"]
