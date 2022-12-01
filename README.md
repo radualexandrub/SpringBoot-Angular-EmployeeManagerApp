@@ -179,8 +179,8 @@ docker compose up -d
 ```bash
 docker-compose down
 
-# or use -v to also remove the volumes used for MySQL
-docker-compose down -v
+# or use -v to also remove the volumes used for MySQL, also remove other remaining containers
+docker-compose down -v --remove-orphans
 ```
 
 - Remove built Docker images
@@ -209,13 +209,13 @@ docker system prune
 
 <br/>
 
-Docker resources I used:
+**Docker resources I used:**
 
 - [Learn Docker in 7 Easy Steps - Beginner's Tutorial by Fireship.io - Study Notes by Radu Alexandru B](https://github.com/radualexandrub/Study/blob/master/Docker/FireshipDockerBeginnerTutorial11m.md)
 - [Docker Compose: Spring Boot and MySQL example - from BezKoder.com](https://www.bezkoder.com/docker-compose-spring-boot-mysql/)
 - [**How to Dockerize Angular with NGINX and Spring Boot with MySQL using Docker Compose** - from javachinna.com](https://www.javachinna.com/angular-nginx-spring-boot-mysql-docker-compose/)
 
-Issues encountered when running Docker containers:
+**Issues encountered when running Docker containers:**
 
 - [Dockerfile after build container doesn’t work ”Could not find or load main class”](https://forums.docker.com/t/dockerfile-after-build-container-doesnt-work-could-not-find-or-load-main-class/121348) - solved by adding whole path to `main()` java function (eg. `com.radubulai.employeemanager.EmployeemanagerApplication`)
 - [Unable to open JDBC Connection for DDL execution](https://stackoverflow.com/questions/54211638/unable-to-open-jdbc-connection-for-ddl-execution)
@@ -225,7 +225,7 @@ Issues encountered when running Docker containers:
 - [Docker Compose wait for container X before starting Y](https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y/41854997#41854997)
 - [Connection Java - MySQL : Public Key Retrieval is not allowed](https://stackoverflow.com/questions/50379839/connection-java-mysql-public-key-retrieval-is-not-allowed) - adding client option to mysql-connector `allowPublicKeyRetrieval=true` to allow the client to automatically request the public key from the server => `jdbc:mysql://mysql-db:3306/employeemanager?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true`
 
-CORS related issues while running Docker containers and using the app:
+**CORS related issues while running Docker containers and using the app:**
 
 - [API Net 6 :: CORS issues when running inside Docker container](https://forums.docker.com/t/api-net-6-cors-issues-when-running-inside-docker-container/130446)
 - ['Access-Control-Allow-Origin' with spring boot](https://stackoverflow.com/questions/46065156/access-control-allow-origin-with-spring-boot)
@@ -245,11 +245,38 @@ server {
 }
 ```
 
-Issues encountered when running `docker compose up` on Debian (Linux):
+**Issues encountered when running `docker compose up` on Debian (Linux):**
 
-- Download and install Docker Desktop `.deb` package (that contains `docker compose`) for Debian from [here](https://docs.docker.com/desktop/install/ubuntu/)
+- Download and install Docker Desktop `.deb` package (that contains `docker compose`) for Debian from [here](https://docs.docker.com/desktop/install/ubuntu/) or RPM package for Fedora from [here](https://docs.docker.com/desktop/install/fedora/)
 - [mvnw: Permission denied](https://github.com/pascalgrimaud/generator-jhipster-docker/issues/29) - fixed by making `mvnw` file executable - run `chmod +x mvnw` within the root project path
 - [Error starting userland proxy: listen tcp4 0.0.0.0:3306: bind: address already in use](https://stackoverflow.com/questions/37896369/error-starting-userland-proxy-listen-tcp-0-0-0-03306-bind-address-already-in) - fixed by running `sudo netstat -nlpt | grep 3306` (installed by `sudo apt instal net-tools`) which finds MySQL running on port 3306 -> stop local MySQL from running with `sudo systemctl stop mysql.service`
+
+**Issues encountered when running `docker compose build` on a Windows machine:**
+
+```
+=> ERROR [employeemanager_spring-api build 6/9] RUN ./mvnw dependency:go-offline -B                                      0.3s
+------
+> [employeemanager_spring-api build 6/9] RUN ./mvnw dependency:go-offline -B:
+#26 0.237 /bin/sh: 1: ./mvnw: not found
+------
+failed to solve: executor failed running [/bin/sh -c ./mvnw dependency:go-offline -B]: exit code: 127
+```
+
+- You can solve this error by having an [Ubuntu WSL](https://learn.microsoft.com/en-us/windows/wsl/install) installed on your Windows machine. In Ubuntu WSL, run `sudo apt-get install dos2unix`, followed by `sudo apt-get update -y && sudo apt-get upgrade -y`
+- Inside the main project's folder, run `dos2unix mvnw`
+- References: 
+  - https://stackoverflow.com/questions/61226664/build-docker-error-bin-sh-1-mvnw-not-found
+  - https://stackoverflow.com/questions/19912941/convert-all-cr-to-crlf-in-text-file-using-cmd
+- As per commit *"Update README with Docker Issue encounterd on Windows and mvnw"* from Thursday, December 01, 2022, running `git diff` resulted in:
+
+```
+git diff
+warning: LF will be replaced by CRLF in mvnw.
+The file will have its original line endings in your working directory
+```
+
+- The `mvnw` file might need to be changed according to the PC (Linux or Windows) that is running the containers
+
 
 <br/>
 
