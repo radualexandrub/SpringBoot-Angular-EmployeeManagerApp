@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from 'src/app/employee';
-import { AppComponent } from 'src/app/app.component';
+import { EmployeesComponent } from '../employees/employees.component';
 
 @Component({
   selector: 'app-employee-card',
@@ -10,11 +10,11 @@ import { AppComponent } from 'src/app/app.component';
 export class EmployeeCardComponent implements OnInit {
   @Input() employee!: Employee;
 
-  constructor(private appComponent: AppComponent) {}
+  constructor(private employeesComponent: EmployeesComponent) {}
 
   ngOnInit(): void {}
 
   onOpenModal(employee: Employee, mode: string): void {
-    this.appComponent.onOpenModal(employee, mode);
+    this.employeesComponent.onOpenModal(employee, mode);
   }
 }
