@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +12,12 @@ import { AddEmployeeModalComponent } from './components/modals/add-employee-moda
 import { EditEmployeeModalComponent } from './components/modals/edit-employee-modal/edit-employee-modal.component';
 import { DeleteEmployeeModalComponent } from './components/modals/delete-employee-modal/delete-employee-modal.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AboutComponent } from './components/pages/about/about.component';
 
+const appRoutes: Routes = [
+  { path: '', component: EmployeesComponent },
+  { path: 'about', component: AboutComponent },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,8 +28,14 @@ import { FooterComponent } from './components/footer/footer.component';
     EditEmployeeModalComponent,
     DeleteEmployeeModalComponent,
     FooterComponent,
+    AboutComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

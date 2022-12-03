@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Employee } from 'src/app/employee';
 import { EmployeesComponent } from '../employees/employees.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,10 @@ import { EmployeesComponent } from '../employees/employees.component';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private employeesComponent: EmployeesComponent) {}
+  constructor(
+    private employeesComponent: EmployeesComponent,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('theme') === null) {
@@ -36,5 +40,9 @@ export class HeaderComponent implements OnInit {
 
   searchEmployees(keyword: string): void {
     this.employeesComponent.searchEmployees(keyword);
+  }
+
+  hasRoute(route: string): boolean {
+    return this.router.url === route;
   }
 }
