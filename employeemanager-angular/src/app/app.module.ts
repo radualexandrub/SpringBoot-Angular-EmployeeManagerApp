@@ -13,9 +13,11 @@ import { EditEmployeeModalComponent } from './components/modals/edit-employee-mo
 import { DeleteEmployeeModalComponent } from './components/modals/delete-employee-modal/delete-employee-modal.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AboutComponent } from './components/pages/about/about.component';
+import { EmployeeComponent } from './components/pages/employee/employee.component';
 
 const appRoutes: Routes = [
   { path: '', component: EmployeesComponent },
+  { path: 'employee/:id', component: EmployeeComponent },
   { path: 'about', component: AboutComponent },
 ];
 @NgModule({
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     DeleteEmployeeModalComponent,
     FooterComponent,
     AboutComponent,
+    EmployeeComponent,
   ],
   imports: [
     BrowserModule,

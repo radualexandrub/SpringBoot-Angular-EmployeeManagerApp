@@ -41,4 +41,8 @@ export class HeaderComponent implements OnInit {
   hasRoute(route: string): boolean {
     return this.router.url === route;
   }
+
+  hasRouteIncluded(route: string): boolean {
+    return this.router.url.includes(route);
+  }
 }

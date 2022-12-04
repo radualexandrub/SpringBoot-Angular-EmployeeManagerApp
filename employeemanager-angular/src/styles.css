@@ -54,6 +54,7 @@ body {
 input {
   color: var(--primary-font-color) !important;
   background-color: var(--background-color-secondary) !important;
+  transition: background-color 300ms ease-in !important;
 }
 .card {
   background-color: var(--container-color);
