@@ -1,0 +1,66 @@
+<div class="row justify-content-center mb-4">
+  <form class="nav-item form-inline my-2 my-lg-0">
+    <input
+      (ngModelChange)="searchEmployees(keyword.value)"
+      #keyword="ngModel"
+      ngModel
+      name="keyword"
+      type="search"
+      id="searchName"
+      class="form-control mr-sm-2"
+      title="Search employees by name, email, phone, or job title"
+      placeholder="Search employees..."
+      style="border-color: rgba(0, 0, 10, 0.25)"
+    />
+  </form>
+</div>
+
+<div class="row">
+  <!-- Employee card -->
+  <app-employee-card
+    class="col-md-6 col-xl-3"
+    *ngFor="let employee of employees"
+    [employee]="employee"
+  >
+  </app-employee-card>
+</div>
+
+<!-- Add Employee Modal -->
+<app-add-employee-modal
+  class="modal fade"
+  id="addEmployeeModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addEmployeeModalLabel"
+  aria-hidden="true"
+></app-add-employee-modal>
+
+<!-- Edit Modal -->
+<app-edit-employee-modal
+  [editEmployee]="editEmployee"
+  class="modal fade"
+  id="editEmployeeModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="employeeEditModalLabel"
+  aria-hidden="true"
+></app-edit-employee-modal>
+
+<!-- Delete Modal -->
+<app-delete-employee-modal
+  [deleteEmployee]="deleteEmployee"
+  class="modal fade"
+  id="deleteEmployeeModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deleteModelLabel"
+  aria-hidden="true"
+></app-delete-employee-modal>
+
+<!-- Notification for no employees -->
+<div *ngIf="employees?.length === 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <div class="alert-heading alert-title">NO EMPLOYEES!</div>
+    <p>No Employees were found.</p>
+  </div>
+</div>

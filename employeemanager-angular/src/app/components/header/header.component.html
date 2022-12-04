@@ -1,21 +1,47 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <h1 style="font-size:1rem;"><a class="navbar-brand" style="color:white;">Employee Manager</a></h1>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
-    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+  <h1 style="font-size: 1rem">
+    <a class="navbar-brand" style="color: white">Employee Manager</a>
+  </h1>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarColor02"
+    aria-controls="navbarColor02"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" (click)="onOpenModal(null!, 'add')">Add Employee <span class="sr-only">(current)</span></a>
+      <li class="nav-item active" *ngIf="hasRoute('/')">
+        <a class="nav-link" (click)="onOpenModal(null!, 'add')"
+          >Add Employee <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li
+        class="nav-item"
+        *ngIf="hasRoute('/about') || hasRouteIncluded('/employee')"
+      >
+        <a class="nav-link" routerLink="/"
+          >All employees <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          routerLink="/about"
+          class="nav-link"
+          [ngClass]="{ active: hasRoute('/about') }"
+          >About <span class="sr-only">(current)</span></a
+        >
       </li>
     </ul>
-    <form class="nav-item form-inline my-2 my-lg-0">
-      <input (ngModelChange)="searchEmployees(keyword.value)" #keyword="ngModel" ngModel name="keyword" type="search"
-        id="searchName" class="form-control mr-sm-2" title="Search employees by name, email, phone, or job title"
-        placeholder="Search employees...">
-    </form>
-    <div (click)="onToggleDarkTheme()" class="dark-mode-icon nav-item" title="Toggle between light/dark theme">
+    <div
+      (click)="onToggleDarkTheme()"
+      class="dark-mode-icon nav-item"
+      title="Toggle between light/dark theme"
+    >
       <i class="fa fa-moon-o fa-2x mx-2"></i>
     </div>
   </div>

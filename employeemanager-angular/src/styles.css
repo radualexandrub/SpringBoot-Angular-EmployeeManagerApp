@@ -3,6 +3,7 @@
 
 :root {
   --background-color: hsl(0, 0%, 98%);
+  --background-color-secondary: hsl(0, 0%, 100%);
   --primary-color: hsl(200, 27%, 37%);
   --secondary-color: hsl(200, 33%, 24%);
   --primary-font-color: #000;
@@ -10,6 +11,7 @@
 }
 [data-theme="dark"] {
   --background-color: hsl(207, 29%, 6%);
+  --background-color-secondary: hsl(206, 28%, 10%);
   --primary-color: hsl(216, 85%, 80%);
   --secondary-color: hsl(210, 79%, 75%);
   --primary-font-color: #fff;
@@ -23,8 +25,7 @@ body {
   background-color: var(--background-color);
   font-size: 16px;
   color: var(--primary-font-color);
-  transition: background-color 300ms ease-in, 
-              color 300ms ease-in;
+  transition: background-color 300ms ease-in, color 300ms ease-in;
 }
 @media (min-width: 1200px) {
   .container {
@@ -43,14 +44,18 @@ body {
 .nav-link:hover {
   cursor: pointer;
 }
-@media screen and (max-width:992px) {
+@media screen and (max-width: 992px) {
   .nav-item {
     display: flex;
     justify-content: center;
   }
-
 }
 
+input {
+  color: var(--primary-font-color) !important;
+  background-color: var(--background-color-secondary) !important;
+  transition: background-color 300ms ease-in !important;
+}
 .card {
   background-color: var(--container-color);
   border: none;
@@ -72,8 +77,8 @@ body {
   background-color: transparent;
 }
 .dark-mode-icon {
-  color:#fff;
-  cursor:pointer;
+  color: #fff;
+  cursor: pointer;
 }
 .w-60 {
   width: 4rem;

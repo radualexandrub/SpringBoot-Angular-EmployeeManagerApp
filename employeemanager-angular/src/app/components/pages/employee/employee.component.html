@@ -1,0 +1,144 @@
+<form #editForm="ngForm" class="card m-b-30">
+  <div class="card-body row">
+    <div class="col-3 d-flex align-items-center justify-content-center">
+      <img
+        src="{{ employee?.imageUrl }}"
+        alt="{{ employee?.name }}"
+        title="{{ 'Picture of ' + employee?.name }}"
+        class="card--img img-fluid rounded-circle"
+        style="width: 16rem"
+      />
+    </div>
+    <div class="col-9 card-title align-self-center mb-0">
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input
+          type="text"
+          ngModel="{{ employee?.name }}"
+          name="name"
+          class="form-control"
+          id="name"
+          aria-describedby="emailHelp"
+          autocomplete="off"
+          title="Edit Employee Name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="jobTitle">Job Title *</label>
+        <input
+          type="text"
+          ngModel="{{ employee?.jobTitle }}"
+          name="jobTitle"
+          class="form-control"
+          id="jobTitle"
+          placeholder="Developer, Manager, Support, etc"
+          list="jobTitle"
+          title="Edit Employee Job Title"
+          required
+        />
+        <datalist id="jobTitle">
+          <option value="Project Manager"></option>
+          <option value="Developer"></option>
+          <option value="Designer"></option>
+          <option value="Support"></option>
+          <option value="System Admin"></option>
+          <option value="SEO Specialist"></option>
+          <option value="Recruiter"></option>
+          <option value="HR Manager"></option>
+        </datalist>
+      </div>
+    </div>
+  </div>
+  <input
+    type="hidden"
+    ngModel="{{ employee?.id }}"
+    name="id"
+    class="form-control"
+    id="id"
+  />
+  <input
+    type="hidden"
+    ngModel="{{ employee?.employeeCode }}"
+    name="userCode"
+    class="form-control"
+    id="userCode"
+  />
+  <div class="card-body">
+    <div class="form-group">
+      <label for="imageUrl">Image URL *</label>
+      <input
+        type="text"
+        ngModel="{{ employee?.imageUrl }}"
+        name="imageUrl"
+        class="form-control"
+        id="imageUrl"
+        placeholder="Image URL"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input
+        type="email"
+        ngModel="{{ employee?.email }}"
+        name="email"
+        class="form-control"
+        id="email"
+        placeholder="name@example.com"
+        autocomplete="off"
+        title="Edit Employee Email"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone *</label>
+      <input
+        type="text"
+        ngModel="{{ employee?.phone }}"
+        name="phone"
+        class="form-control"
+        id="phone"
+        placeholder="Phone"
+        title="Edit Employee Phone"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="websiteUrl">Website URL</label>
+      <input
+        type="text"
+        ngModel="{{ employee?.websiteUrl }}"
+        name="websiteUrl"
+        class="form-control"
+        id="websiteUrl"
+        placeholder="https://www.employees-website.com"
+        title="Edit Employee Website URL"
+      />
+    </div>
+    <div class="form-group">
+      <label for="linkedinUrl">LinkedIn URL</label>
+      <input
+        type="text"
+        ngModel="{{ employee?.linkedinUrl }}"
+        name="linkedinUrl"
+        class="form-control"
+        id="linkedinUrl"
+        placeholder="https://www.linkedin.com/in/employee-name/"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      (click)="onUpdateEmployeeFromPage(editForm.value)"
+      [disabled]="editForm.invalid"
+      data-dismiss="modal"
+      class="btn btn-primary"
+    >
+      Save changes
+    </button>
+  </div>
+</form>
+<div class="row col-lg-12">
+  <a routerLink="/">Back to all employees page</a>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { EmployeesComponent } from '../../employees/employees.component';
 import { Employee } from 'src/app/employee';
 
 @Component({
@@ -10,11 +10,11 @@ import { Employee } from 'src/app/employee';
 export class DeleteEmployeeModalComponent implements OnInit {
   @Input() deleteEmployee: Employee | undefined;
 
-  constructor(private appComponent: AppComponent) {}
+  constructor(private employeesComponent: EmployeesComponent) {}
 
   ngOnInit(): void {}
 
   public onDeleteEmployee(employeeId: number): void {
-    this.appComponent.onDeleteEmployee(employeeId);
+    this.employeesComponent.onDeleteEmployee(employeeId);
   }
 }
