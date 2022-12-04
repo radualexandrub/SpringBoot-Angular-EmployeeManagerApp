@@ -38,10 +38,6 @@ export class HeaderComponent implements OnInit {
     this.employeesComponent.onOpenModal(employee, mode);
   }
 
-  searchEmployees(keyword: string): void {
-    this.employeesComponent.searchEmployees(keyword);
-  }
-
   hasRoute(route: string): boolean {
     return this.router.url === route;
   }

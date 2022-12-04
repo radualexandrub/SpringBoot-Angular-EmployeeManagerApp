@@ -1,3 +1,20 @@
+<div class="row justify-content-center mb-4">
+  <form class="nav-item form-inline my-2 my-lg-0">
+    <input
+      (ngModelChange)="searchEmployees(keyword.value)"
+      #keyword="ngModel"
+      ngModel
+      name="keyword"
+      type="search"
+      id="searchName"
+      class="form-control mr-sm-2"
+      title="Search employees by name, email, phone, or job title"
+      placeholder="Search employees..."
+      style="border-color: rgba(0, 0, 10, 0.25)"
+    />
+  </form>
+</div>
+
 <div class="row">
   <!-- Employee card -->
   <app-employee-card

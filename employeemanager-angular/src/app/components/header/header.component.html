@@ -34,19 +34,6 @@
         >
       </li>
     </ul>
-    <form class="nav-item form-inline my-2 my-lg-0" *ngIf="hasRoute('/')">
-      <input
-        (ngModelChange)="searchEmployees(keyword.value)"
-        #keyword="ngModel"
-        ngModel
-        name="keyword"
-        type="search"
-        id="searchName"
-        class="form-control mr-sm-2"
-        title="Search employees by name, email, phone, or job title"
-        placeholder="Search employees..."
-      />
-    </form>
     <div
       (click)="onToggleDarkTheme()"
       class="dark-mode-icon nav-item"
