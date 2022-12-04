@@ -16,8 +16,7 @@ export class EmployeeComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private employeeService: EmployeeService,
-    private employeesComponent: EmployeesComponent
+    private employeeService: EmployeeService
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +37,18 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
-  onOpenModal(employee: Employee, mode: string): void {
-    this.employeesComponent.onOpenModal(employee, mode);
+  onUpdateEmployeeFromPage(employee: Employee): void {
+    const methodName = 'onUpdateEmployeeFromPage() ';
+    this.employeeService.updateEmployee(employee).subscribe(
+      (response: Employee) => {
+        console.debug(
+          methodName + 'Response Received: ' + JSON.stringify(response)
+        );
+        this.getEmployeeById(employee.id);
+      },
+      (error: HttpErrorResponse) => {
+        console.error(methodName + error.message);
+      }
+    );
   }
 }
