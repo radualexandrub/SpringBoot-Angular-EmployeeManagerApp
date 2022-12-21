@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Employee } from '../employee';
+import { Employee } from '../models/employee';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class EmployeeService {
 
   public getEmployeeById(employeeId: number): Observable<Employee> {
     const methodName = 'getEmployeeById() ';
-    console.debug(methodName + 'Request Sent: ' + employeeId);
+    console.debug(methodName + 'Request Sent: EmployeeId: ' + employeeId);
     return this.http.get<Employee>(`${this.apiServerUrl}/${employeeId}`);
   }
 

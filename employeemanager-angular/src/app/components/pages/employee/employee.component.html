@@ -10,6 +10,7 @@
       />
     </div>
     <div class="col-9 card-title align-self-center mb-0">
+      <h2>{{ employee?.name }}</h2>
       <div class="form-group">
         <label for="name">Name *</label>
         <input
@@ -139,6 +140,104 @@
     </button>
   </div>
 </form>
+
+<div class="card m-b-30">
+  <div class="card-body row">
+    <div class="col-12 d-flex">
+      <h2>{{ employee?.name }} Salaries</h2>
+    </div>
+    <div class="col-12 d-flex">
+      <div class="w-100">
+        <form
+          #salaryEditForm="ngForm"
+          (submit)="onUpdateSalaries(salaryEditForm.value)"
+        >
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let salary of salaries; let i = index">
+                <input
+                  type="hidden"
+                  ngModel="{{ salary.id }}"
+                  name="{{ i }}_id"
+                  id="{{ i }}_id"
+                  class="form-control"
+                />
+                <td scope="row">
+                  <input
+                    type="date"
+                    ngModel="{{ salary.startDate }}"
+                    name="{{ i }}_startDate"
+                    id="{{ i }}_startDate"
+                    class="form-control"
+                    title="Salary Start Date"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="date"
+                    ngModel="{{ salary.endDate }}"
+                    name="{{ i }}_endDate"
+                    id="{{ i }}_endDate"
+                    class="form-control"
+                    title="Salary End Date"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    ngModel="{{ salary.amount }}"
+                    name="{{ i }}_amount"
+                    id="{{ i }}_amount"
+                    class="form-control"
+                    title="Salary Amount"
+                  />
+                </td>
+                <td>
+                  <div class="d-flex align-items-center" style="gap: 0.5rem">
+                    <button
+                      type="button"
+                      class="text-danger"
+                      style="
+                        font-size: 1.25rem;
+                        font-weight: 700;
+                        cursor: pointer;
+                        background: transparent;
+                        border: none;
+                      "
+                      aria-label="Delete Salary"
+                      title="Delete Salary"
+                      (click)="onDeleteSalary(salary.id)"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="modal-footer py-3 px-0">
+            <button
+              type="submit"
+              [disabled]="salaryEditForm.invalid"
+              class="btn btn-primary"
+            >
+              Save Salaries
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row col-lg-12">
   <a routerLink="/">Back to all employees page</a>
 </div>

@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { Employee } from '../../employee';
+import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service';
 
 @Component({

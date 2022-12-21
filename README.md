@@ -37,6 +37,8 @@ Contents:
 
 ## SpringBoot REST API URLs
 
+For `Employees` MySQL Table:
+
 - `http://localhost:8080/api/employees` - GET - `getAllEmployees()`
 
 - `http://localhost:8080/api/employees/{id}` - GET - `getEmployeeById(@PathVariable("id") Long id)`
@@ -46,6 +48,20 @@ Contents:
 - `http://localhost:8080/api/employees/update` - PUT - `updateEmployee(@RequestBody Employee employee)`
 
 - `http://localhost:8080/api/employees/{id}` - DELETE - `deleteEmployee(@PathVariable("id") Long id)`
+
+For `Salaries` MySQL Table:
+
+- `http://localhost:8080/api/salaries` - GET - `findAllSalaries()`
+
+- `http://localhost:8080/api/salaries/{id}` - GET - `findSalaryById()`
+
+- `http://localhost:8080/api/salaries/employee/{id}` - GET `findSalariesByEmployeeId()`
+
+- `http://localhost:8080/api/salaries/new` - POST `addSalary()`
+
+- `http://localhost:8080/api/salaries/update` - PUT `updateSalary()`
+
+- `http://localhost:8080/api/salaries/{id}` - DELETE `deleteSalaryById()`
 
 <br/>
 

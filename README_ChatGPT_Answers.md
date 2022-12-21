@@ -3,6 +3,9 @@
 Credits:
 - ChatGPT: https://chat.openai.com/chat (Sunday, December 18, 2022)
 - https://attacomsian.com/blog/spring-data-jpa-one-to-many-mapping
+- https://stackoverflow.com/questions/69126457/spring-boot-jpa-foreign-key-variable-can-not-read-data-from-mysql-db
+- https://stackoverflow.com/questions/1459265/hibernate-create-mysql-innodb-tables-instead-of-myisam
+- https://stackoverflow.com/questions/52656517/no-serializer-found-for-class-org-hibernate-proxy-pojo-bytebuddy-bytebuddyinterc
 
 <br/>
 
@@ -296,3 +299,111 @@ src/
 In this structure, the model classes (Employee and Salary) are placed in the com.example.model package, the repository class (SalaryRepository) is placed in the com.example.repository package, the service class (SalaryService) is placed in the com.example.service package, and the resource class (SalaryResource) is placed in the com.example.resource package.
 
 This is just one way to organize the classes in a project, and you may need to modify the package structure based on your specific requirements and needs.
+
+<br/>
+
+# Random example: Group object properties
+
+(Wednesday, December 21, 2022)
+
+> Given the following JS object:
+> 
+> ```js
+> {
+>   "0_id": "2",
+>   "0_startDate": "2020-10-12",
+>   "0_endDate": "2022-10-13",
+>   "0_amount": "8008",
+>   "1_id": "3",
+>   "1_startDate": "2022-12-29",
+>   "1_endDate": "2023-01-05",
+>   "1_amount": "6000",
+> }
+> ```
+> 
+> How can I group to different objects in an array the properties that are starting with a number in front?
+
+You can use the Object.entries() method to get an array of the object's key-value pairs, and then use the Array.reduce() method to group the key-value pairs into a new object. Here's an example of how you can do this:
+
+```js
+const input = {
+    "0_id": "2",
+    "0_startDate": "2020-10-12",
+    "0_endDate": "2022-10-13",
+    "0_amount": "8008",
+    "1_id": "3",
+    "1_startDate": "2022-12-29",
+    "1_endDate": "2023-01-05",
+    "1_amount": "6000",
+};
+
+const output = Object.entries(input).reduce((acc, [key, value]) => {
+  const [index, prop] = key.split('_');
+  if (!acc[index]) acc[index] = {};
+  acc[index][prop] = value;
+  return acc;
+}, []);
+
+console.log(output);
+```
+
+This will output an array of objects like this:
+
+```js
+[
+  {
+    id: "2",
+    startDate: "2020-10-12",
+    endDate: "2022-10-13",
+    amount: "8008"
+  },
+  {
+    id: "3",
+    startDate: "2022-12-29",
+    endDate: "2023-01-05",
+    amount: "6000"
+  }
+]
+```
+
+The Object.entries() method returns an array of the object's key-value pairs, where each element is an array with two elements: the key and the value. The Array.reduce() method then iterates over this array, and for each key-value pair, it splits the key into two parts using the split() method: the index and the property name. It then checks if an object for the given index exists in the accumulator, and if not, it creates a new object for that index. Finally, it adds the property and value to the object for the given index.
+
+<br/>
+
+> Can you rewrite the above code in TypeScript?
+
+```ts
+const input: { [key: string]: string } = {
+    "0_id": "2",
+    "0_startDate": "2020-10-12",
+    "0_endDate": "2022-10-13",
+    "0_amount": "8008",
+    "1_id": "3",
+    "1_startDate": "2022-12-29",
+    "1_endDate": "2023-01-05",
+    "1_amount": "6000",
+};
+
+type OutputType = { [key: string]: { [key: string]: string } }
+
+const output: OutputType = Object.entries(input).reduce((acc: OutputType, [key, value]) => {
+  const [index, prop] = key.split('_');
+  if (!acc[index]) acc[index] = {};
+  acc[index][prop] = value;
+  return acc;
+}, []);
+
+console.log(output);
+```
+
+In this version of the code, I've added type annotations to the input object and the output array. The input object is typed as an object with string keys and string values, and the output array is typed as an object with string keys and values that are themselves objects with string keys and string values. This allows the TypeScript compiler to check the types of the variables and ensure that the code is correct.
+
+<br/>
+
+> Thanks. What is "acc" in the above code?
+
+In the code above, acc is the accumulator variable that is used in the Array.reduce() method. The reduce() method iterates over an array and applies a function to each element in the array, accumulating the result in the accumulator. The accumulator is initialized with the second argument passed to the reduce() method (in this case, an empty array []), and for each element in the array, the function is called with the accumulator and the current element as arguments. The return value of the function is then stored in the accumulator and used in the next iteration.
+
+In the code above, the accumulator is used to store the resulting array of objects that are created by grouping the key-value pairs from the input object. Each time the function is called, it checks if an object for the given index exists in the accumulator, and if not, it creates a new object for that index. It then adds the property and value to the object for the given index, and finally it returns the accumulator.
+
+The acc variable is a common abbreviation for "accumulator". It's a convention that is often used in programming to denote the accumulator variable in a reduce() function or similar constructs.

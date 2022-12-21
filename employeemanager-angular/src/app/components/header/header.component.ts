@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Employee } from 'src/app/employee';
+import { Employee } from 'src/app/models/employee';
 import { EmployeesComponent } from '../employees/employees.component';
 import { Router } from '@angular/router';
 

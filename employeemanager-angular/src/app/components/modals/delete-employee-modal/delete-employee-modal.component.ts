@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EmployeesComponent } from '../../employees/employees.component';
-import { Employee } from 'src/app/employee';
+import { Employee } from 'src/app/models/employee';
 
 @Component({
   selector: 'app-delete-employee-modal',
