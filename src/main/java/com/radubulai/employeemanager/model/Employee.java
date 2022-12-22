@@ -2,8 +2,10 @@ package com.radubulai.employeemanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
+@Table(name="employees")
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,9 @@ public class Employee implements Serializable {
     private String linkedinUrl;
     @Column(nullable = false, updatable = false)
     private String employeeCode;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<Salary> salaries;
 
     public Employee() {}
 

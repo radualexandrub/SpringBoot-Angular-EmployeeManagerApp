@@ -121,3 +121,6 @@ a:hover {
   font-weight: 700;
   margin-bottom: 1rem;
 }
+.modal-footer {
+  border-top: none !important;
+}
