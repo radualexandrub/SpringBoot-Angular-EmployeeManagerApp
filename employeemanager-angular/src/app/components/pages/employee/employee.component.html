@@ -10,7 +10,7 @@
       />
     </div>
     <div class="col-9 card-title align-self-center mb-0">
-      <h2>{{ employee?.name }}</h2>
+      <h2>{{ employee?.name }}'s Page</h2>
       <div class="form-group">
         <label for="name">Name *</label>
         <input
@@ -135,6 +135,7 @@
       [disabled]="editForm.invalid"
       data-dismiss="modal"
       class="btn btn-primary"
+      title="Save Employee Changes"
     >
       Save changes
     </button>
@@ -146,94 +147,155 @@
     <div class="col-12 d-flex">
       <h2>{{ employee?.name }} Salaries</h2>
     </div>
+
+    <!-- Employee Salaries Table with Update Form -->
     <div class="col-12 d-flex">
-      <div class="w-100">
-        <form
-          #salaryEditForm="ngForm"
-          (submit)="onUpdateSalaries(salaryEditForm.value)"
-        >
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Amount</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let salary of salaries; let i = index">
+      <form
+        #salaryEditForm="ngForm"
+        (ngSubmit)="onUpdateEmployeeSalaries(salaryEditForm.value)"
+        class="w-100"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Amount</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let salary of salaries; let i = index">
+              <input
+                type="hidden"
+                ngModel="{{ salary.id }}"
+                name="{{ i }}_id"
+                id="{{ i }}_id"
+                class="form-control"
+              />
+              <td scope="row">
                 <input
-                  type="hidden"
-                  ngModel="{{ salary.id }}"
-                  name="{{ i }}_id"
-                  id="{{ i }}_id"
+                  type="date"
+                  ngModel="{{ salary.startDate }}"
+                  name="{{ i }}_startDate"
+                  id="{{ i }}_startDate"
                   class="form-control"
+                  title="Salary Start Date"
                 />
-                <td scope="row">
-                  <input
-                    type="date"
-                    ngModel="{{ salary.startDate }}"
-                    name="{{ i }}_startDate"
-                    id="{{ i }}_startDate"
-                    class="form-control"
-                    title="Salary Start Date"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="date"
-                    ngModel="{{ salary.endDate }}"
-                    name="{{ i }}_endDate"
-                    id="{{ i }}_endDate"
-                    class="form-control"
-                    title="Salary End Date"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    ngModel="{{ salary.amount }}"
-                    name="{{ i }}_amount"
-                    id="{{ i }}_amount"
-                    class="form-control"
-                    title="Salary Amount"
-                  />
-                </td>
-                <td>
-                  <div class="d-flex align-items-center" style="gap: 0.5rem">
-                    <button
-                      type="button"
-                      class="text-danger"
-                      style="
-                        font-size: 1.25rem;
-                        font-weight: 700;
-                        cursor: pointer;
-                        background: transparent;
-                        border: none;
-                      "
-                      aria-label="Delete Salary"
-                      title="Delete Salary"
-                      (click)="onDeleteSalary(salary.id)"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="modal-footer py-3 px-0">
-            <button
-              type="submit"
-              [disabled]="salaryEditForm.invalid"
-              class="btn btn-primary"
-            >
-              Save Salaries
-            </button>
+              </td>
+              <td>
+                <input
+                  type="date"
+                  ngModel="{{ salary.endDate }}"
+                  name="{{ i }}_endDate"
+                  id="{{ i }}_endDate"
+                  class="form-control"
+                  title="Salary End Date"
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  ngModel="{{ salary.amount }}"
+                  name="{{ i }}_amount"
+                  id="{{ i }}_amount"
+                  class="form-control"
+                  title="Salary Amount"
+                />
+              </td>
+              <td>
+                <div class="d-flex align-items-center" style="gap: 0.5rem">
+                  <button
+                    type="button"
+                    class="text-danger"
+                    style="
+                      font-size: 1.25rem;
+                      font-weight: 700;
+                      cursor: pointer;
+                      background: transparent;
+                      border: none;
+                    "
+                    aria-label="Delete Salary"
+                    title="Delete Salary"
+                    (click)="onDeleteEmployeeSalary(salary.id)"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal-footer py-3 px-0">
+          <button
+            type="submit"
+            [disabled]="salaryEditForm.invalid"
+            class="btn btn-primary"
+            title="Save Salary Changes"
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Employee Salary Add Form -->
+    <div class="col-12">
+      <p>Add new Salary</p>
+      <form
+        #salaryAddForm="ngForm"
+        (ngSubmit)="onAddEmployeeSalary(salaryAddForm)"
+        class="w-100"
+      >
+        <div class="d-flex w-100 justify-content-between" style="gap: 1rem">
+          <div class="form-group w-100">
+            <label for="startDate">Start Date</label>
+            <input
+              type="date"
+              ngModel
+              name="startDate"
+              id="startDate"
+              class="form-control"
+              title="Salary Start Date"
+              required
+            />
           </div>
-        </form>
-      </div>
+          <div class="form-group w-100">
+            <label for="endDate">End Date</label>
+            <input
+              type="date"
+              ngModel
+              name="endDate"
+              id="endDate"
+              class="form-control"
+              title="Salary End Date"
+              required
+            />
+          </div>
+          <div class="form-group w-100">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              ngModel
+              name="amount"
+              id="amount"
+              class="form-control"
+              title="Salary Amount"
+              required
+            />
+          </div>
+        </div>
+        <div class="modal-footer py-3 px-0">
+          <button
+            type="submit"
+            [disabled]="salaryAddForm.invalid"
+            class="btn btn-primary"
+            title="Add New Salary"
+          >
+            Add Salary
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

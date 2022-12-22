@@ -5,6 +5,7 @@ import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { SalaryService } from 'src/app/services/salary.service';
 import { Salary } from 'src/app/models/salary';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
@@ -61,7 +62,9 @@ export class EmployeeComponent implements OnInit {
     this.salaryService.getSalariesByEmployeeId(employeeId).subscribe(
       (response: Salary[]) => {
         this.salaries = response;
-        console.debug(methodName + JSON.stringify(response));
+        console.debug(
+          methodName + 'Response Received: ' + JSON.stringify(response)
+        );
       },
       (error: HttpErrorResponse) => {
         console.error(methodName + error.message);
@@ -69,7 +72,28 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
-  onUpdateSalaries(salaries: any): void {
+  onAddEmployeeSalary(salaryForm: NgForm) {
+    const methodName = 'onAddEmployeeSalary() ';
+    // Manually append the employee object with employeeId property
+    Object.assign(salaryForm.value, {
+      employee: { id: this.employeeId },
+    });
+
+    this.salaryService.addSalary(salaryForm.value).subscribe(
+      (response: Salary) => {
+        console.debug(
+          methodName + 'Response Received: ' + JSON.stringify(response)
+        );
+        this.getSalariesByEmployeeId(this.employeeId);
+        salaryForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        console.error(methodName + error.message);
+      }
+    );
+  }
+
+  onUpdateEmployeeSalaries(salaries: any): void {
     /* 
       Receive Salary properties starting with a number in front
       Example: 
@@ -131,11 +155,9 @@ export class EmployeeComponent implements OnInit {
         }
       );
     }
-
-    this.getSalariesByEmployeeId(this.employeeId);
   }
 
-  onDeleteSalary(salaryId: number) {
+  onDeleteEmployeeSalary(salaryId: number) {
     const methodName = 'onDeleteSalaryById() ';
     this.salaryService.deleteSalary(salaryId).subscribe(
       (response: void) => {
