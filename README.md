@@ -2,15 +2,15 @@
 
 Employee Manager App that permits CRUD operations through Angular SPA that consumes a SpringBoot REST API connected to MySQL Database.
 
-This project is based on [Spring Boot Full Stack with Angular App - Full Course 05-Feb-2021 - Amigoscode - 2h40m](https://youtu.be/Gx4iBLKLVHk) tutorial. The complete documentation for this project can be found here: [Spring Boot Full Stack with Angular Application - Full Course 05-Feb-2021 - Amigoscode](https://github.com/radualexandrub/Study/blob/master/SpringBoot/SpringBootWithAngularCourse.md).
+This project is adapted and feature-enhanced from [Spring Boot Full Stack with Angular App - Full Course 05-Feb-2021 - Amigoscode - 2h40m](https://youtu.be/Gx4iBLKLVHk) tutorial. The complete documentation for this project can be found here: [Spring Boot Full Stack with Angular Application - Full Course 05-Feb-2021 - Amigoscode](https://github.com/radualexandrub/Study/blob/master/SpringBoot/SpringBootWithAngularCourse.md).
 
 <br/>
 
 Contents:
 
 - [Employee Manager App with Angular and SpringBoot Rest API](#employee-manager-app-with-angular-and-springboot-rest-api)
-  - [Screenshots](#screenshots)
   - [SpringBoot REST API URLs](#springboot-rest-api-urls)
+  - [Screenshots](#screenshots)
   - [Install Dependencies](#install-dependencies)
     - [Clone this repository](#clone-this-repository)
     - [Configure MySQL](#configure-mysql)
@@ -20,18 +20,6 @@ Contents:
   - [Running locally with Docker 🚀](#running-locally-with-docker-)
   - [Folder Project Structure](#folder-project-structure)
   - [License](#license)
-
-<br/>
-
-## Screenshots
-
-![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo01.jpg)
-
-![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo02.jpg)
-
-![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo03.jpg)
-
-![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo04.jpg)
 
 <br/>
 
@@ -62,6 +50,44 @@ For `Salaries` MySQL Table:
 - `http://localhost:8080/api/salaries/update` - PUT `updateSalary()`
 
 - `http://localhost:8080/api/salaries/{id}` - DELETE `deleteSalaryById()`
+
+<br/>
+
+MySQL Database Diagram:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/MySQL_Database_2022-12-23.jpg)
+
+<br/>
+
+## Screenshots
+
+Main page:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-MainPage.jpg)
+
+About Page:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-AboutPage.jpg)
+
+Main Page - Add Employee Form:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-AddForm.jpg)
+
+Main Page - Quick Edit Employee Form:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-QuickEditForm.jpg)
+
+Main Page - Delete Employee Form:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-DeleteForm.jpg)
+
+Employee Page - Editable information:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-EmployeePage.jpg)
+
+Employee Page - Edit, Delete & Add Salaries Form:
+
+![Angular and Spring Boot API Employee Manager App](./demo-screenshots/AngularSpringBoot_demo-EmployeePage_Salaries.jpg)
 
 <br/>
 
@@ -280,10 +306,10 @@ failed to solve: executor failed running [/bin/sh -c ./mvnw dependency:go-offlin
 
 - You can solve this error by having an [Ubuntu WSL](https://learn.microsoft.com/en-us/windows/wsl/install) installed on your Windows machine. In Ubuntu WSL, run `sudo apt-get install dos2unix`, followed by `sudo apt-get update -y && sudo apt-get upgrade -y`
 - Inside the main project's folder, run `dos2unix mvnw`
-- References: 
+- References:
   - https://stackoverflow.com/questions/61226664/build-docker-error-bin-sh-1-mvnw-not-found
   - https://stackoverflow.com/questions/19912941/convert-all-cr-to-crlf-in-text-file-using-cmd
-- As per commit *"Update README with Docker Issue encounterd on Windows and mvnw"* from Thursday, December 01, 2022, running `git diff` resulted in:
+- As per commit _"Update README with Docker Issue encounterd on Windows and mvnw"_ from Thursday, December 01, 2022, running `git diff` resulted in:
 
 ```
 git diff
@@ -292,7 +318,6 @@ The file will have its original line endings in your working directory
 ```
 
 - The `mvnw` file might need to be changed according to the PC (Linux or Windows) that is running the containers
-
 
 <br/>
 
@@ -343,6 +368,6 @@ employeemanager/
 
 ## License
 
-Copyright &copy; 2022 [Radu-Alexandru Bulai](https://radubulai.com)
+Copyright &copy; 2022-2023 [Radu-Alexandru Bulai](https://radubulai.com). All rights reserved.
 
 Released under [MIT License](./LICENSE).
