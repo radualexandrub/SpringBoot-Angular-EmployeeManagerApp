@@ -9,6 +9,7 @@ services:
       dockerfile: Spring.Dockerfile
     ports:
       - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - "5005:5005" # Expose the debug port 5005 on the container to port 5005 on the host machine
     restart: on-failure
     depends_on:
       - mysql-db # This service depends on mysql. Start that first.
@@ -17,6 +18,7 @@ services:
       SPRING_DATASOURCE_USERNAME: radu
       SPRING_DATASOURCE_PASSWORD: radu123456
       APPLICATION_START_DELAY_IN_SECONDS: 40
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
       - frontend

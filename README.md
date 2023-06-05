@@ -18,6 +18,7 @@ Contents:
     - [Install Node.js, npm and Angular](#install-nodejs-npm-and-angular)
   - [Running the app locally](#running-the-app-locally)
   - [Running locally with Docker 🚀](#running-locally-with-docker-)
+  - [Debugging the SpringBoot project while running in docker-compose using IntelliJ](#debugging-the-springboot-project-while-running-in-docker-compose-using-intellij)
   - [Folder Project Structure](#folder-project-structure)
   - [License](#license)
 
@@ -318,6 +319,64 @@ The file will have its original line endings in your working directory
 ```
 
 - The `mvnw` file might need to be changed according to the PC (Linux or Windows) that is running the containers
+
+<br/>
+
+## Debugging the SpringBoot project while running in docker-compose using IntelliJ
+
+To be able to debug our application (using breakpoints in IntelliJ) after running the `docker-compose up` command, we need to perform the following steps:
+
+1. In the main project in `application.properties` file, add `debug=true` line (if using `application.yml` file, add `debug: true` instead)
+
+![How to Debug in IntelliJ a SpringBoot Project running in docker-compose](./demo-screenshots/debug-screenshots/AngularSpringBoot_debug01.jpg)
+
+2. In `docker-compose.yml` file:
+
+- Under `spring-api` service > `ports`, we need to expose the 5005 debug port:
+
+```yml
+- "5005:5005" # Expose the debug port 5005 on the container to port 5005 on the host machine
+```
+
+![How to Debug in IntelliJ a SpringBoot Project running in docker-compose](./demo-screenshots/debug-screenshots/AngularSpringBoot_debug02.jpg)
+
+3. In IntelliJ:
+
+- Go to `Run` > `Edit Configurations...`
+- Click the "+" button to add a new configuration and select "Remote JVM Debug" from the list
+- Set a name for the configuration (e.g. "Remote Debugging").
+- Under the "Debugger mode" section, select "Attach to remote JVM"
+- Set the "Host" to `localhost` and the "Port" to `5005` (or the port you specified in the `docker-compose.yml` file)
+- _Copy to clipboard the command under "Command line arguments for remote JVM"_
+- Click "Apply" and then "OK" to save the configuration
+
+![How to Debug in IntelliJ a SpringBoot Project running in docker-compose](./demo-screenshots/debug-screenshots/AngularSpringBoot_debug03.jpg)
+
+4. Again, in `docker-compose.yml` file:
+
+- Under `spring-api` service > `environment`, we need to add `JAVA_TOOL_OPTIONS` environment variable. This configuration enables the JVM to listen on port 5005 for remote debugging connections (_Paste the value from "Command line arguments for remote JVM_)
+
+```yml
+JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+```
+
+5. Open a separate terminal (e.g. Powershell), and run `docker-compose up` command
+
+6. In IntelliJ:
+
+- Add **breakpoints** in your codebase where you want to inspect/debug code. The debugger will stop at those breakpoints during the execution
+- Have the `docker-compose.yml` file opened, then:
+  - Go to upper right corner, select the created "Remote Debugging" configuration, and click on "Debug 'Remote Debugging'" (the bug icon) - or press SHIFT+F9 shortcut (to start the remote debugging session). IntelliJ will now connect to the running Spring Boot application in the Docker container via the debug port
+  - Open the bottom "Debug" tab
+
+![How to Debug in IntelliJ a SpringBoot Project running in docker-compose](./demo-screenshots/debug-screenshots/AngularSpringBoot_debug04.jpg)
+
+![How to Debug in IntelliJ a SpringBoot Project running in docker-compose](./demo-screenshots/debug-screenshots/AngularSpringBoot_debug05.jpg)
+
+Useful links used:
+
+- [Run and debug a Spring Boot application using Docker Compose - IntelliJ Ultimate](https://www.jetbrains.com/help/idea/run-and-debug-a-spring-boot-application-using-docker-compose.html)
+- [How to Debug Docker Containers in IntelliJ - 12min YouTube video from 13-Aug-2022](https://www.youtube.com/watch?v=Q9jZ1gNJlAc)
 
 <br/>
 
