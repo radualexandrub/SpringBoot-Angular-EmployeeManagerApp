@@ -40,7 +40,7 @@ services:
 
   # Database Service (Mysql)
   mysql-db:
-    image: mysql:8.0
+    image: docker.io/mysql:8.0
     ports:
       - "3306:3306"
     restart: unless-stopped

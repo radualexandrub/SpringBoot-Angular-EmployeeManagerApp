@@ -18,6 +18,7 @@ Contents:
     - [Install Node.js, npm and Angular](#install-nodejs-npm-and-angular)
   - [Running the app locally](#running-the-app-locally)
   - [Running locally with Docker 🚀](#running-locally-with-docker-)
+  - [Running locally with podman-compose](#running-locally-with-podman-compose)
   - [Debugging the SpringBoot project while running in docker-compose using IntelliJ](#debugging-the-springboot-project-while-running-in-docker-compose-using-intellij)
   - [Folder Project Structure](#folder-project-structure)
   - [License](#license)
@@ -322,6 +323,13 @@ The file will have its original line endings in your working directory
 
 <br/>
 
+## Running locally with podman-compose
+
+See steps for running the app with `podman-compose up` as well as troubleshooting steps here: [Migrating from docker compose to podman compose
+](./README_PodmanCompose.md)
+
+<br/>
+
 ## Debugging the SpringBoot project while running in docker-compose using IntelliJ
 
 To be able to debug our application (using breakpoints in IntelliJ) after running the `docker-compose up` command, we need to perform the following steps:
@@ -427,6 +435,6 @@ employeemanager/
 
 ## License
 
-Copyright &copy; 2022-2023 [Radu-Alexandru Bulai](https://radubulai.com). All rights reserved.
+Copyright &copy; 2022-2024 [Radu-Alexandru Bulai](https://radubulai.com). Released under [MIT License](./LICENSE).
 
-Released under [MIT License](./LICENSE).
+🔴 Please ensure proper credit is given when using this application for training purposes in your company. For any inquiries, kindly email me at radualexandrubulai@gmail.com. Thank you!
